@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.side-bar-img{
+    filter: brightness(0) saturate(100%) invert(16%) sepia(36%) saturate(1591%) hue-rotate(194deg) brightness(86%) contrast(102%);
+}
