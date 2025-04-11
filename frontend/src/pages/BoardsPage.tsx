@@ -1,13 +1,24 @@
-import Container from "../components/Container";
-import BoardsList from "../components/BoardsList";
-import { useGetData } from "../utils";
-import boardsService from "../services/boardsService";
 import { Board } from "../types";
 import { useState } from "react";
+import { useGetData } from "../utils";
+
+import Container from "../components/Container";
+import BoardsList from "../components/BoardsList";
+import Load from "../components/Loader/Load";
+import Switch from "../components/Switch";
+
+import boardsService from "../services/boardsService";
 
 const BoardsPage = () => {
-    const {data, errors, loading } = useGetData<Board[]>(boardsService.getBoards);
+    const [joinedBoards, SetJoinedBoards] = useState(false);
     const [search, setSearch] = useState("");
+
+    const boardsData = useGetData<Board[]>(boardsService.getBoards);
+    const joinedBoardData = useGetData<Board[]>(boardsService.getJoinedBoards);
+
+    const data = (joinedBoards) ? joinedBoardData.data : boardsData.data;
+    const errors = (joinedBoards) ? joinedBoardData.errors : boardsData.errors;
+    const loading = (joinedBoards) ? joinedBoardData.loading : boardsData.loading;
 
     let filteredData: Board[] = [];
 
@@ -21,13 +32,15 @@ const BoardsPage = () => {
 
     return(
         <Container>
-            <h1 className="text-6xl">Boards:</h1>
-            <input className="block p-4 ps-10 mt-10 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Search..."
-            onChange={e => handleSearch(e.target.value)}
-            ></input>
-            { errors && <h2>A network error has occurred</h2> }
-            { loading && <h2>Loading...</h2> }
-            { data && <BoardsList boards={filteredData} />}
+            <Load errors={errors} loading={loading} />
+            { data && 
+            <>
+                <h1 className="text-6xl">{joinedBoards ? "Joined Boards:" : "Boards:" }</h1>
+                <div className="mt-5"><Switch joinedBoards={joinedBoards} onSwitch={SetJoinedBoards} /></div>
+                <input className="block p-4 ps-10 mt-5 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Search..." onChange={e => handleSearch(e.target.value)}></input>
+                <BoardsList boards={filteredData} />
+            </>
+            }
         </Container>
     );
 };

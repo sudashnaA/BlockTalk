@@ -1,9 +1,10 @@
 import Container from "../components/Container";
+import Title from "../components/Title";
 
 const HomePage = () => {
     return(
         <Container>
-           <h1 className="text-6xl">Home</h1>
+           <Title text="Home"/>
         </Container>
     );
 };

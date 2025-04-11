@@ -13,8 +13,14 @@ export type passportUser = Pick<User, "id"> | null;
 export type NewUser = z.infer<typeof NewUserSchema>; 
 export type LoginUser = z.infer<typeof LoginUserSchema>;
 
-export type NewPost = Omit<Post, "id">;
+export type NewPost = Omit<Post, "id" | "date">;
+export type ReqPost = Pick<Post, "title" | "content">;
 export type NewBoard = Omit<Board, "id">;
+
+export interface joinBoard {
+    status: boolean;
+    newMemberCount: number;
+}
 
 export enum Colors {
     red = "Red",

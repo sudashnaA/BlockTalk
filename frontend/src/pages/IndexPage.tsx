@@ -1,9 +1,10 @@
 import Container from "../components/Container";
+import Title from "../components/Title";
 
 const IndexPage = () => {
     return(
         <Container>
-           <h1 className="text-6xl">BlockTalk</h1>
+           <Title text="BlockTalk"/>
         </Container>
     );
 };

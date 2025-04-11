@@ -8,6 +8,7 @@ import axios from "axios";
 import { FormError } from "../types";
 import { AuthContext } from "../context";
 import { useContext } from "react";
+import Title from "../components/Title";
 
 const LoginPage = () => {
     const { setAuth } = useContext(AuthContext);
@@ -33,9 +34,9 @@ const LoginPage = () => {
 
     return(
         <Container>
-            <h1 className="text-5xl">Login</h1>
+            <Title text="Login" />
             {error.length > 0 && <FormErrors errors={error}/>}
-            <MainForm OnSubmit={(e) => submitForm(e)}>
+            <MainForm full={false} OnSubmit={(e) => submitForm(e)}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">Username</label>
                     <input onChange={(e) => setUsername(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"/>

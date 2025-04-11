@@ -26,3 +26,8 @@ export interface Board {
     logo: string;
     color: string;
 };
+
+export interface joinBoardRes {
+    status: boolean;
+    newMemberCount: number;
+}

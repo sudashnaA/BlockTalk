@@ -9,8 +9,8 @@ const SideBar = () => {
             <OpenButton open={open} setOpen={ setOpen }/>  
             <div className={`fixed top-0 ${open ? "left-0" : "-left-80"} h-screen w-1/3 md:w-50 flex flex-col bg-gray-200 shadow-lg transition-all`}>   
                 <CloseButton setOpen={setOpen} />
-                <SideBarItem setOpen={setOpen} text={"Home"} imgpath={"home-svgrepo-com.svg"} />
-                <SideBarItem setOpen={setOpen} text={"Boards"} imgpath={"message-circle-lines-svgrepo-com.svg"}  />
+                <SideBarItem setOpen={setOpen} text="Home" page="home" imgpath="home-svgrepo-com.svg" />
+                <SideBarItem setOpen={setOpen} text="Boards" page="boards" imgpath="message-circle-lines-svgrepo-com.svg"  />
             </div>
         </>
     );
@@ -35,12 +35,10 @@ const OpenButton = ({open, setOpen}: {open: boolean, setOpen: React.Dispatch<Rea
     )
 };
 
-const SideBarItem = ({ text, imgpath, setOpen }: {text: string, imgpath: string, setOpen: React.Dispatch<React.SetStateAction<boolean>>}) => (
-    <div className="relative flex items-center justify-center h-14 w-14 mt-2 mb-2 mx-auto bg-white hover:bg-gray-600 hover:text-white
-    hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg group">
-        <Link onClick={() => setOpen(false)} to={`/${text}`}><img className="h-10 w-10 object-contain side-bar-img" src={`/${imgpath}`}/></Link>
-        <span className="absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md text-white bg-gray-900 
-        text-xs font-bold transition-all duration-100 scale-0 origin-left group-hover:scale-100">
+const SideBarItem = ({ text, page, imgpath, setOpen }: {text: string, page: string, imgpath: string, setOpen: React.Dispatch<React.SetStateAction<boolean>>}) => (
+    <div className="relative flex items-center justify-center h-14 w-14 mt-2 mb-2 mx-auto bg-white hover:bg-gray-600 hover:text-white hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg group">
+        <Link onClick={() => setOpen(false)} to={`/${page}`}><img className="h-10 w-10 object-contain side-bar-img" src={`/${imgpath}`}/></Link>
+        <span className="absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md text-white bg-gray-900 text-xs font-bold transition-all duration-100 scale-0 origin-left group-hover:scale-100">
         {text}
         </span>
     </div>
